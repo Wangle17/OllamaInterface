@@ -24,7 +24,6 @@
       max-width: 780px;
     }
 
-    /* header above terminal */
     .header {
       display: flex;
       align-items: baseline;
@@ -43,11 +42,8 @@
       color: #374151;
       letter-spacing: 0.05em;
     }
-    .header-server span {
-      color: #22d3ee;
-    }
+    .header-server span { color: #22d3ee; }
 
-    /* terminal window */
     .term-window {
       background: #0d0d0d;
       border-radius: 10px;
@@ -79,27 +75,59 @@
       letter-spacing: 0.08em;
       margin: 0 auto;
     }
-    .term-bar-model {
-      font-size: 11px;
+
+    /* model selector in title bar */
+    .model-select-wrap {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .model-select-label {
+      font-size: 10px;
+      color: #374151;
+      letter-spacing: 0.06em;
+    }
+    #model-select {
+      appearance: none;
+      -webkit-appearance: none;
+      background: #0d0d0d;
+      border: 1px solid #2a2a2a;
       color: #c084fc;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      padding: 3px 22px 3px 8px;
+      border-radius: 4px;
+      cursor: pointer;
       letter-spacing: 0.05em;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    #model-select:hover { border-color: #c084fc; }
+    #model-select:focus { border-color: #c084fc; }
+    .model-select-arrow {
+      pointer-events: none;
+      position: absolute;
+      right: 7px;
+      color: #374151;
+      font-size: 9px;
     }
 
     /* boot lines */
     .boot-section {
-      padding: 18px 24px 0;
+      padding: 18px 24px 14px;
       flex-shrink: 0;
       border-bottom: 1px solid #141414;
-      padding-bottom: 14px;
     }
     .boot-line {
       font-size: 12px;
       line-height: 1.8;
       color: #2d4a3e;
     }
-    .boot-line .ok { color: #4ade80; }
+    .boot-line .ok  { color: #4ade80; }
     .boot-line .info { color: #22d3ee; }
-    .boot-line .dim { color: #1f2937; }
+    .boot-line .dim  { color: #1f2937; }
+    .boot-line .warn { color: #fbbf24; }
 
     /* chat log */
     .chat-log {
@@ -115,15 +143,17 @@
     .chat-log::-webkit-scrollbar-track { background: transparent; }
     .chat-log::-webkit-scrollbar-thumb { background: #1e1e1e; border-radius: 2px; }
 
-    /* message blocks */
+    /* messages */
     .msg-block { margin-bottom: 4px; }
-    .msg-prompt-line {
-      font-size: 13px;
-      line-height: 1.6;
-      color: #4ade80;
-    }
+    .msg-prompt-line { font-size: 13px; line-height: 1.6; color: #4ade80; }
     .msg-prompt-line .sym { color: #22d3ee; }
     .msg-prompt-line .cmd { color: #f1f5f9; }
+    .msg-model-tag {
+      font-size: 10px;
+      color: #374151;
+      margin-left: 18px;
+      letter-spacing: 0.05em;
+    }
 
     .msg-response {
       padding: 2px 0 10px 16px;
@@ -138,8 +168,6 @@
       white-space: pre-wrap;
       word-break: break-word;
     }
-    .msg-response-line .accent { color: #c084fc; }
-
     .msg-error-line {
       font-size: 13px;
       line-height: 1.75;
@@ -152,7 +180,7 @@
       margin: 10px 0;
     }
 
-    /* thinking indicator */
+    /* thinking */
     .thinking {
       font-size: 12px;
       color: #374151;
@@ -160,25 +188,14 @@
       border-left: 1px solid #1a2e1a;
       margin-left: 6px;
     }
-    .thinking .dot-pulse {
-      display: inline-block;
-      animation: pulse 1.4s ease-in-out infinite;
-    }
+    .dot-pulse { display: inline-block; animation: pulse 1.4s ease-in-out infinite; }
     @keyframes pulse { 0%,100%{opacity:0.2} 50%{opacity:1} }
 
     /* status */
-    .status-bar {
-      padding: 6px 24px;
-      min-height: 26px;
-      flex-shrink: 0;
-    }
-    #status {
-      font-size: 11px;
-      color: #854d0e;
-      letter-spacing: 0.04em;
-    }
+    .status-bar { padding: 6px 24px; min-height: 26px; flex-shrink: 0; }
+    #status { font-size: 11px; color: #854d0e; letter-spacing: 0.04em; }
     #status.sending { color: #fbbf24; }
-    #status.error { color: #f87171; }
+    #status.error   { color: #f87171; }
 
     /* input row */
     .input-row {
@@ -189,11 +206,7 @@
       border-top: 1px solid #161616;
       flex-shrink: 0;
     }
-    .input-sym {
-      color: #22d3ee;
-      font-size: 14px;
-      flex-shrink: 0;
-    }
+    .input-sym { color: #22d3ee; font-size: 14px; flex-shrink: 0; }
     #prompt {
       flex: 1;
       background: transparent;
@@ -220,13 +233,12 @@
       transition: background 0.15s, border-color 0.15s;
       flex-shrink: 0;
     }
-    .send-btn:hover { background: #0f1f0f; border-color: #4ade80; }
+    .send-btn:hover  { background: #0f1f0f; border-color: #4ade80; }
     .send-btn:active { transform: scale(0.97); }
 
     .cursor {
       display: inline-block;
-      width: 7px;
-      height: 13px;
+      width: 7px; height: 13px;
       background: #22d3ee;
       animation: blink 1.1s step-end infinite;
       vertical-align: -2px;
@@ -246,29 +258,31 @@
 
     <div class="term-window">
 
-      <!-- title bar -->
+      <!-- title bar with model dropdown -->
       <div class="term-bar">
         <div class="dot dot-r"></div>
         <div class="dot dot-y"></div>
         <div class="dot dot-g"></div>
-        <span class="term-bar-title">ollama — llama3.2 — local</span>
-        <span class="term-bar-model">llama3.2</span>
+        <span class="term-bar-title" id="bar-title">ollama — local</span>
+        <div class="model-select-wrap">
+          <span class="model-select-label">model:</span>
+          <select id="model-select"></select>
+          <span class="model-select-arrow">▾</span>
+        </div>
       </div>
 
       <!-- boot lines -->
       <div class="boot-section">
         <div class="boot-line"><span class="ok">[  OK  ]</span> Connected to ollama server</div>
-        <div class="boot-line"><span class="ok">[  OK  ]</span> Model <span class="info">llama3.2</span> loaded</div>
+        <div class="boot-line" id="boot-model-line"><span class="ok">[  OK  ]</span> Model <span class="info" id="boot-model-name">—</span> ready</div>
         <div class="boot-line"><span class="dim">[------]</span> Session started: <span id="session-ts" class="dim"></span></div>
       </div>
 
       <!-- chat messages -->
       <div class="chat-log" id="chat"></div>
 
-      <!-- status line -->
-      <div class="status-bar">
-        <span id="status"></span>
-      </div>
+      <!-- status -->
+      <div class="status-bar"><span id="status"></span></div>
 
       <!-- input -->
       <div class="input-row">
@@ -280,16 +294,65 @@
     </div>
   </div>
 
+  <!-- model definitions -->
+  <script src="models.js"></script>
+
   <script>
     const SERVER = "http://192.168.86.241:11434";
 
-    document.getElementById('session-ts').textContent = new Date().toLocaleString('en-AU', { hour12: false });
+    // ── populate dropdown from models.js ────────────────────────────────────
+    const selectEl = document.getElementById('model-select');
 
+    OLLAMA_MODELS.forEach(m => {
+      const opt = document.createElement('option');
+      opt.value = m.id;
+      opt.textContent = m.label;
+      if (m.id === DEFAULT_MODEL) opt.selected = true;
+      selectEl.appendChild(opt);
+    });
+
+    function getSelectedModel() {
+      return selectEl.value;
+    }
+
+    function getSelectedLabel() {
+      const found = OLLAMA_MODELS.find(m => m.id === selectEl.value);
+      return found ? found.label : selectEl.value;
+    }
+
+    // update boot line + title bar when model changes
+    function updateModelUI() {
+      const label = getSelectedLabel();
+      document.getElementById('boot-model-name').textContent = label;
+      document.getElementById('bar-title').textContent = `ollama — ${label.toLowerCase()} — local`;
+    }
+
+    selectEl.addEventListener('change', () => {
+      updateModelUI();
+      addSystemLine(`model switched → ${getSelectedLabel()}`);
+    });
+
+    // init
+    document.getElementById('session-ts').textContent =
+      new Date().toLocaleString('en-AU', { hour12: false });
+    updateModelUI();
+
+    // ── helpers ─────────────────────────────────────────────────────────────
     function escHtml(s) {
       return String(s)
         .replace(/&/g, '&amp;')
         .replace(/</g, '&lt;')
         .replace(/>/g, '&gt;');
+    }
+
+    function addSystemLine(text) {
+      const chat = document.getElementById('chat');
+      const el = document.createElement('div');
+      el.className = 'boot-line';
+      el.style.cssText = 'font-size:11px;margin:6px 0;';
+      el.innerHTML = `<span class="warn">[  --  ]</span> ${escHtml(text)}`;
+      chat.appendChild(el);
+      chat.scrollTop = chat.scrollHeight;
     }
 
     function addMessage(role, content) {
@@ -301,14 +364,14 @@
         block.innerHTML = `
           <div class="msg-prompt-line">
             <span class="sym">❯ </span><span class="cmd">${escHtml(content)}</span>
-          </div>`;
+          </div>
+          <div class="msg-model-tag">${escHtml(getSelectedLabel())}</div>`;
         chat.appendChild(block);
       } else {
         const responseDiv = document.createElement('div');
         responseDiv.className = 'msg-response';
 
-        const lines = String(content).split('\n');
-        lines.forEach(rawLine => {
+        String(content).split('\n').forEach(rawLine => {
           const lineEl = document.createElement('div');
           if (!rawLine.trim()) {
             lineEl.style.height = '6px';
@@ -320,10 +383,9 @@
         });
 
         chat.appendChild(responseDiv);
-
-        const divider = document.createElement('hr');
-        divider.className = 'divider';
-        chat.appendChild(divider);
+        const div = document.createElement('hr');
+        div.className = 'divider';
+        chat.appendChild(div);
       }
 
       chat.scrollTop = chat.scrollHeight;
@@ -344,25 +406,27 @@
       if (el) el.remove();
     }
 
+    // ── send message ─────────────────────────────────────────────────────────
     async function sendMessage() {
       const promptEl = document.getElementById('prompt');
       const statusEl = document.getElementById('status');
       const prompt = promptEl.value.trim();
       if (!prompt) return;
 
+      const model = getSelectedModel();
       promptEl.value = '';
       addMessage('user', prompt);
       addThinking();
 
       statusEl.className = 'sending';
-      statusEl.textContent = 'transmitting...';
+      statusEl.textContent = `transmitting → ${getSelectedLabel()}...`;
 
       try {
         const res = await fetch(`${SERVER}/api/chat`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            model: "llama3.2",
+            model: model,
             messages: [{ role: "user", content: prompt }],
             stream: false
           })
